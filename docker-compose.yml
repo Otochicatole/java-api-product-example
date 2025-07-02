@@ -1,0 +1,25 @@
+version: '3.9' # Siempre usa una versión explícita de Docker Compose.
+
+services:
+  mysql:
+    image: mysql:latest # Tira siempre a la última versión estable.
+    container_name: mysql_server # Nombre del contenedor para referencia más fácil.
+    restart: unless-stopped # Se reinicia a menos que lo pares manualmente.
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword123 # Cambialo por uno más seguro en prod.
+      MYSQL_DATABASE: mydatabase # Base de datos inicial creada automáticamente.
+      MYSQL_USER: myuser # Usuario adicional que quieras usar.
+      MYSQL_PASSWORD: mypassword # Password para el usuario adicional.
+    ports:
+      - "3306:3306" # Exponer puerto local 3306 para conexión externa.
+    volumes:
+      - mysql_data:/var/lib/mysql # Persistencia de datos para que no pierdas nada si el contenedor se cae.
+    networks:
+      - mysql_network # Lo ponemos en su propia red por buenas prácticas.
+
+volumes:
+  mysql_data: # Volumen nombrado para persistir la data.
+
+networks:
+  mysql_network: # Red dedicada para evitar conflictos y mejorar seguridad.
+    driver: bridge
