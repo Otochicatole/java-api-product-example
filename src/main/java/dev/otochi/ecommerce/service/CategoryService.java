@@ -45,6 +45,12 @@ public class CategoryService {
         return repository.save(category);
     }
 
+    public CategoryDTO createFromDTO(CategoryDTO dto) {
+        CategoryEntity entity = mapper.categoryDTOToEntity(dto);
+        CategoryEntity saved = repository.save(entity);
+        return mapper.categoryEntityToCategoryDTO(saved, new CycleAvoidingMappingContext());
+    }
+
     public void delete(UUID id) {
         repository.deleteById(id);
     }

@@ -38,13 +38,11 @@ public class CategoryController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Opción avanzada: recibir DTO y mapear a Entity (aún no implementado)
-    // @PostMapping
-    // public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO dto) {
-    //     CategoryEntity entity = mapper.toEntity(dto); // <- se necesitaría el mapper inverso
-    //     CategoryEntity saved = service.create(entity);
-    //     return ResponseEntity.ok(mapper.toDTO(saved));
-    // }
+    @PostMapping
+    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO dto) {
+        CategoryDTO created = service.createFromDTO(dto);
+        return ResponseEntity.ok(created);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable UUID id) {

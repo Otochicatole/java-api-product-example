@@ -14,6 +14,11 @@ public interface CategoryMapper {
 
     List<CategoryDTO> categoryEntityListToDTOList(List<CategoryEntity> categories, @Context CycleAvoidingMappingContext context);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "parentCategory", ignore = true)
+    @Mapping(target = "subcategories", ignore = true)
+    CategoryEntity categoryDTOToEntity(CategoryDTO dto);
+
     @BeforeMapping
     default <T> T getMappedInstance(Object source, @TargetType Class<T> targetType, @Context CycleAvoidingMappingContext context) {
         return context.getMappedInstance(source, targetType);
