@@ -18,7 +18,7 @@ public class ProductEntity {
     private BigInteger price;
     private BigInteger offerPrice;
     private BigInteger quantity;
-    private URL image;
+    private String image;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private CategoryEntity category;

@@ -19,5 +19,5 @@ public class ProductDTO {
     @NotNull
     private BigInteger quantity;
     @NotNull
-    private URL image;
+    private String image;
 }
