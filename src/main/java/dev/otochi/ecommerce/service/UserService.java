@@ -32,6 +32,10 @@ public class UserService {
         return repository.findByUsername(username);
     }
 
+    public Optional<UserDTO> getByEmail(String email) {
+        return repository.findByEmail(email).map(mapper::userEntityToDTO);
+    }
+
     public UserDTO create(UserEntity user) {
         if (repository.findByEmail(user.getEmail()).isPresent()) {
             throw new IllegalArgumentException("this email is already exists");

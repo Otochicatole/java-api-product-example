@@ -28,14 +28,14 @@ public class AuthController {
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
-        user.setRole(userDto.getRole());
+        user.setRole("USER");
         return ResponseEntity.ok(userService.create(user));
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UserEntity> getCurrentUser(Authentication authentication) {
-        String username = authentication.getName();
-        return userService.getByUsername(username)
+    public ResponseEntity<UserDTO> getCurrentUser(Authentication authentication) {
+        String email = authentication.getName();
+        return userService.getByEmail(email)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
